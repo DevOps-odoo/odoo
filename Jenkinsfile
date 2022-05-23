@@ -2,12 +2,12 @@ node {
               
     stage('Git clone') {
          
-            git branch: 'main', credentialsId: 'jenkins', url: 'git@github.com:DevOps-odoo/odoo-k8s.git'
+            git branch: 'main', credentialsId: 'jenkins', url: 'git@github.com:DevOps-odoo/odoo.git'
                //generate pair key jenkins private github public 
     }
        
     stage('Docker Build') {
-       sh 'docker build -t assc2/imech:NET-$BUILD_NUMBER .' 
+       sh 'docker build -t assc2/odoo:NET-$BUILD_NUMBER .' 
         // sh 'docker build -t imech/odoo:latest .' 
         }   
     
@@ -15,7 +15,7 @@ node {
     stage('Push') {
            withDockerRegistry([ credentialsId: "dockerHUB", url: "" ]) {   
          
-         sh 'docker push assc2/imech:NET-$BUILD_NUMBER'
+         sh 'docker push assc2/odoo:NET-$BUILD_NUMBER'
          // sh 'docker push imech/odoo:latest'
         // token from dockerhub
     }
